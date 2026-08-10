@@ -1,0 +1,8 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "prisma generate && next build",
+  "github": {
+    "enabled": true,
+    "autoAlias": false
+  }
+}
