@@ -60,10 +60,7 @@ export default async function DashboardPage() {
         }),
         prisma.inquiry.count({
           where: {
-            OR: [
-              { sellerId },
-              { listing: { sellerId } },
-            ],
+          carListing: { sellerId },
           },
         }),
       ]);
@@ -81,15 +78,12 @@ export default async function DashboardPage() {
 
       recentInquiries = await prisma.inquiry.findMany({
         where: {
-          OR: [
-            { sellerId },
-            { listing: { sellerId } },
-          ],
+        carListing: { sellerId },
         },
         orderBy: { createdAt: 'desc' },
         take: 5,
         include: {
-          listing: {
+          carListing: {
             select: {
               title: true,
               make: true,
@@ -364,7 +358,7 @@ export default async function DashboardPage() {
                   </p>
 
                   <div className="text-[11px] text-blue-400 font-medium truncate">
-                    Re: {inquiry.listing?.title || inquiry.listing?.make + ' ' + inquiry.listing?.model || 'Vehicle Listing'}
+                    Re: {inquiry.carListing?.title || inquiry.carListing?.make + ' ' + inquiry.carListing?.model || 'Vehicle Listing'}
                   </div>
                 </div>
               ))}
