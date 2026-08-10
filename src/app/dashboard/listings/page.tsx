@@ -44,7 +44,7 @@ export default async function ListingsPage() {
     });
     if (seller?.plan) sellerPlan = seller.plan;
 
-    listings = await prisma.listing.findMany({
+    listings = await prisma.carListing.findMany({
       where: { sellerId },
       orderBy: { createdAt: 'desc' },
     });

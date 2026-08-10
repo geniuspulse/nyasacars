@@ -52,9 +52,9 @@ export default async function DashboardPage() {
       });
 
       const [listingsCount, activeCount, viewsResult, inquiriesCount] = await Promise.all([
-        prisma.listing.count({ where: { sellerId } }),
-        prisma.listing.count({ where: { sellerId, status: 'ACTIVE' } }),
-        prisma.listing.aggregate({
+        prisma.carListing.count({ where: { sellerId } }),
+        prisma.carListing.count({ where: { sellerId, status: 'ACTIVE' } }),
+        prisma.carListing.aggregate({
           where: { sellerId },
           _sum: { views: true },
         }),
@@ -73,7 +73,7 @@ export default async function DashboardPage() {
       totalViews = viewsResult._sum.views || 0;
       totalInquiries = inquiriesCount;
 
-      recentListings = await prisma.listing.findMany({
+      recentListings = await prisma.carListing.findMany({
         where: { sellerId },
         orderBy: { createdAt: 'desc' },
         take: 5,

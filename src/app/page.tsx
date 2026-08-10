@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Search, ShieldCheck, MessageSquarePhone, Car, ArrowRight, Store, CheckCircle, Award, Star } from 'lucide-react';
+import { Search, ShieldCheck, MessageSquare, Car, ArrowRight, Store, CheckCircle, Award, Star } from 'lucide-react';
 import { prisma, MOCK_CARS, MOCK_SELLERS } from '@/lib/prisma';
 import SearchBar from '@/components/SearchBar';
 import CarCard from '@/components/CarCard';
@@ -174,7 +174,7 @@ export default async function HomePage() {
             {/* Step 2 */}
             <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 flex flex-col items-center text-center space-y-4 hover:shadow-md transition">
               <div className="h-14 w-14 rounded-2xl bg-nyasa-100 text-nyasa-700 flex items-center justify-center font-bold text-xl shadow-inner">
-                <MessageSquarePhone className="h-7 w-7" />
+                <MessageSquare className="h-7 w-7" />
               </div>
               <span className="text-xs font-bold text-nyasa-700 uppercase tracking-widest">Step 02</span>
               <h3 className="text-lg font-bold text-slate-900">Direct Communication</h3>

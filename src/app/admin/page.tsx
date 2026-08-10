@@ -38,7 +38,7 @@ export default async function AdminDashboardPage() {
     const [usersCount, sellersCount, listingsCount, inquiriesCount] = await Promise.all([
       prisma.user.count(),
       prisma.seller.count(),
-      prisma.listing.count(),
+      prisma.carListing.count(),
       prisma.inquiry.count(),
     ]);
 
@@ -59,7 +59,7 @@ export default async function AdminDashboardPage() {
       },
     });
 
-    recentListings = await prisma.listing.findMany({
+    recentListings = await prisma.carListing.findMany({
       orderBy: { createdAt: 'desc' },
       take: 5,
       include: {
