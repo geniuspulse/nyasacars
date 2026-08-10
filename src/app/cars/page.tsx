@@ -113,15 +113,15 @@ export default async function CarsPage({ searchParams }: CarsPageProps) {
       filtered = filtered.filter((c) => c.condition === condition);
     }
     if (minPrice !== undefined) {
-      filtered = filtered.filter((c) => c.price >= minPrice);
+      filtered = filtered.filter((c) => Number(c.price) >= minPrice);
     }
     if (maxPrice !== undefined) {
-      filtered = filtered.filter((c) => c.price <= maxPrice);
+      filtered = filtered.filter((c) => Number(c.price) <= maxPrice);
     }
 
     // Sort mock data
-    if (sort === 'price_asc') filtered.sort((a, b) => a.price - b.price);
-    else if (sort === 'price_desc') filtered.sort((a, b) => b.price - a.price);
+    if (sort === 'price_asc') filtered.sort((a, b) => Number(a.price) - Number(b.price));
+    else if (sort === 'price_desc') filtered.sort((a, b) => Number(b.price) - Number(a.price));
     else if (sort === 'mileage_asc') filtered.sort((a, b) => a.mileage - b.mileage);
     else filtered.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
