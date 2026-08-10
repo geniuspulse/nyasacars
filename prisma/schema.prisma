@@ -1,0 +1,195 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  SELLER
+  BUYER
+}
+
+enum Plan {
+  FREE
+  PRO
+  PREMIUM
+}
+
+enum Condition {
+  NEW
+  USED
+  CERTIFIED_PRE_OWNED
+}
+
+enum BodyType {
+  SEDAN
+  SUV
+  HATCHBACK
+  PICKUP
+  COUPE
+  CONVERTIBLE
+  MINIVAN
+  WAGON
+  OTHER
+}
+
+enum Transmission {
+  MANUAL
+  AUTOMATIC
+  CVT
+  SEMI_AUTO
+}
+
+enum FuelType {
+  PETROL
+  DIESEL
+  HYBRID
+  ELECTRIC
+  LPG
+}
+
+enum ListingStatus {
+  DRAFT
+  ACTIVE
+  SOLD
+  EXPIRED
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  PAST_DUE
+  CANCELED
+  EXPIRED
+}
+
+enum InquiryStatus {
+  NEW
+  CONTACTED
+  CLOSED
+}
+
+enum TransactionType {
+  PURCHASE
+  USAGE
+  REFUND
+}
+
+model User {
+  id            String         @id @default(cuid())
+  email         String         @unique
+  password      String
+  name          String?
+  role          Role           @default(BUYER)
+  phone         String?
+  avatar        String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  seller        Seller?
+  listings      CarListing[]
+  subscriptions Subscription[]
+  inquiries     Inquiry[]
+}
+
+model Seller {
+  id                   String                @id @default(cuid())
+  userId               String                @unique
+  user                 User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  shopName             String
+  shopSlug             String                @unique
+  shopDescription      String?
+  logo                 String?
+  coverImage           String?
+  isVerified           Boolean               @default(false)
+  plan                 Plan                  @default(FREE)
+  adCredits            Int                   @default(0)
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+
+  listings             CarListing[]
+  subscription         Subscription?
+  adCreditTransactions AdCreditTransaction[]
+}
+
+model CarListing {
+  id             String        @id @default(cuid())
+  sellerId       String
+  seller         Seller        @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  userId         String?
+  user           User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
+  title          String
+  make           String
+  model          String
+  year           Int
+  price          Decimal
+  currency       String        @default("MWK")
+  condition      Condition     @default(USED)
+  bodyType       BodyType
+  transmission   Transmission
+  fuelType       FuelType
+  mileage        Int?
+  color          String
+  engineSize     String?
+  features       String[]
+  description    String
+  images         String[]
+  status         ListingStatus @default(DRAFT)
+  isFeatured     Boolean       @default(false)
+  featuredUntil  DateTime?
+  views          Int           @default(0)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  inquiries      Inquiry[]
+
+  @@index([make])
+  @@index([model])
+  @@index([status])
+  @@index([isFeatured])
+}
+
+model Subscription {
+  id                   String             @id @default(cuid())
+  sellerId             String             @unique
+  seller               Seller             @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  userId               String?
+  user                 User?              @relation(fields: [userId], references: [id], onDelete: SetNull)
+  plan                 Plan
+  status               SubscriptionStatus @default(ACTIVE)
+  stripeCustomerId     String?
+  stripeSubscriptionId String?
+  currentPeriodEnd     DateTime?
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+}
+
+model Inquiry {
+  id           String        @id @default(cuid())
+  carListingId String
+  carListing   CarListing    @relation(fields: [carListingId], references: [id], onDelete: Cascade)
+  userId       String?
+  user         User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
+  buyerName    String
+  buyerEmail   String
+  buyerPhone   String
+  message      String
+  status       InquiryStatus @default(NEW)
+  createdAt    DateTime      @default(now())
+}
+
+model AdCreditTransaction {
+  id              String          @id @default(cuid())
+  sellerId        String
+  seller          Seller          @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  credits         Int
+  amount          Decimal
+  currency        String          @default("MWK")
+  stripePaymentId String?
+  type            TransactionType
+  description     String
+  createdAt       DateTime        @default(now())
+}
