@@ -22,7 +22,7 @@ export default async function HomePage() {
         seller: true,
       },
       orderBy: [
-        { featured: 'desc' },
+        { isFeatured: 'desc' },
         { createdAt: 'desc' },
       ],
     });
