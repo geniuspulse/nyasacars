@@ -233,7 +233,7 @@ export default async function ListingsPage() {
 
                       {/* Featured Badge */}
                       <td className="py-4 px-4 whitespace-nowrap">
-                        {listing.isFeatured || listing.featured ? (
+                        {listing.isFeatured ? (
                           <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
                             <Star className="w-3 h-3 fill-amber-300 text-amber-300" />
                             <span>Featured</span>

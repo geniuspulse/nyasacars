@@ -44,10 +44,7 @@ export default async function InquiriesPage({ searchParams }: InquiriesPageProps
 
   if (sellerId) {
     const whereClause: any = {
-      OR: [
-        { sellerId },
-        { listing: { sellerId } },
-      ],
+      carListing: { sellerId },
     };
 
     if (currentFilter !== 'ALL') {
@@ -59,7 +56,7 @@ export default async function InquiriesPage({ searchParams }: InquiriesPageProps
         where: whereClause,
         orderBy: { createdAt: 'desc' },
         include: {
-          listing: {
+          carListing: {
             select: {
               id: true,
               title: true,
@@ -75,7 +72,7 @@ export default async function InquiriesPage({ searchParams }: InquiriesPageProps
     }
   }
 
-  const filters = ['ALL', 'NEW', 'READ', 'REPLIED', 'CLOSED'];
+  const filters = ['ALL', 'NEW', 'CONTACTED', 'CLOSED'];
 
   return (
     <div className="space-y-8">
@@ -144,12 +141,12 @@ export default async function InquiriesPage({ searchParams }: InquiriesPageProps
               </thead>
               <tbody className="divide-y divide-slate-800/80">
                 {inquiries.map((inquiry) => {
-                  const buyerName = inquiry.name || inquiry.buyerName || 'Anonymous Buyer';
-                  const buyerEmail = inquiry.email || inquiry.buyerEmail || 'N/A';
-                  const buyerPhone = inquiry.phone || inquiry.buyerPhone || 'N/A';
+                  const buyerName = inquiry.buyerName || 'Anonymous Buyer';
+                  const buyerEmail = inquiry.buyerEmail || 'N/A';
+                  const buyerPhone = inquiry.buyerPhone || 'N/A';
                   const listingTitle =
-                    inquiry.listing?.title ||
-                    (inquiry.listing ? `${inquiry.listing.year} ${inquiry.listing.make} ${inquiry.listing.model}` : 'General Inquiry');
+                    inquiry.carListing?.title ||
+                    (inquiry.carListing ? `${inquiry.carListing.year} ${inquiry.carListing.make} ${inquiry.carListing.model}` : 'General Inquiry');
 
                   return (
                     <tr key={inquiry.id} className="hover:bg-slate-800/40 transition-colors">
@@ -198,10 +195,8 @@ export default async function InquiriesPage({ searchParams }: InquiriesPageProps
                           className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold ${
                             inquiry.status === 'NEW'
                               ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20'
-                              : inquiry.status === 'REPLIED'
+                              : inquiry.status === 'CONTACTED'
                               ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                              : inquiry.status === 'READ'
-                              ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
                               : 'bg-slate-800 text-slate-400 border border-slate-700'
                           }`}
                         >

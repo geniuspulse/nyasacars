@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
 
 export async function POST(request: Request) {
   try {
@@ -9,12 +10,32 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    // Process inquiry submission (e.g. log / save / send notification)
-    console.log('Received Car Inquiry:', { carListingId, name, email, phone, message });
+    // Verify the listing exists
+    const listing = await prisma.carListing.findUnique({
+      where: { id: carListingId },
+      select: { id: true, sellerId: true },
+    });
+
+    if (!listing) {
+      return NextResponse.json({ error: 'Listing not found' }, { status: 404 });
+    }
+
+    // Save inquiry to database
+    const inquiry = await prisma.inquiry.create({
+      data: {
+        carListingId,
+        buyerName: name,
+        buyerEmail: email,
+        buyerPhone: phone,
+        message,
+        status: 'NEW',
+      },
+    });
 
     return NextResponse.json({
       success: true,
       message: 'Inquiry received successfully',
+      inquiryId: inquiry.id,
     });
   } catch (error) {
     console.error('Inquiry API Error:', error);

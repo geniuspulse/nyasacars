@@ -9,8 +9,7 @@ const updateSellerSchema = z.object({
   shopDescription: z.string().optional(),
   logo: z.string().optional(),
   coverImage: z.string().optional(),
-  phone: z.string().optional(),
-  whatsapp: z.string().optional(),
+  location: z.string().optional(),
 });
 
 function generateShopSlug(shopName: string): string {
@@ -23,13 +22,6 @@ function generateShopSlug(shopName: string): string {
   return `${base || 'shop'}-${randomSuffix}`;
 }
 
-function getModels() {
-  const sellerModel = (prisma as any).seller || prisma.seller;
-  const listingModel = (prisma as any).carListing || (prisma as any).listing || prisma.carListing;
-  const inquiryModel = (prisma as any).inquiry || prisma.inquiry;
-  return { sellerModel, listingModel, inquiryModel };
-}
-
 export async function GET(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
@@ -38,14 +30,15 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { sellerModel, listingModel, inquiryModel } = getModels();
-
-    const seller = await sellerModel.findFirst({
+    const seller = await prisma.seller.findFirst({
       where: {
         OR: [
           ...(session.user.sellerId ? [{ id: session.user.sellerId }] : []),
           { userId: session.user.id },
         ],
+      },
+      include: {
+        user: { select: { phone: true, email: true, name: true } },
       },
     });
 
@@ -55,19 +48,16 @@ export async function GET(req: NextRequest) {
 
     // Compute seller stats
     const [listingCount, totalViewsAgg, inquiryCount] = await Promise.all([
-      listingModel.count({
+      prisma.carListing.count({
         where: { sellerId: seller.id },
       }),
-      listingModel.aggregate({
+      prisma.carListing.aggregate({
         where: { sellerId: seller.id },
         _sum: { views: true },
       }),
-      inquiryModel.count({
+      prisma.inquiry.count({
         where: {
-          OR: [
-            { sellerId: seller.id },
-            { listing: { sellerId: seller.id } },
-          ],
+          carListing: { sellerId: seller.id },
         },
       }),
     ]);
@@ -102,9 +92,7 @@ export async function PUT(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { sellerModel } = getModels();
-
-    const seller = await sellerModel.findFirst({
+    const seller = await prisma.seller.findFirst({
       where: {
         OR: [
           ...(session.user.sellerId ? [{ id: session.user.sellerId }] : []),
@@ -134,7 +122,7 @@ export async function PUT(req: NextRequest) {
       dataToUpdate.shopSlug = generateShopSlug(dataToUpdate.shopName);
     }
 
-    const updatedSeller = await sellerModel.update({
+    const updatedSeller = await prisma.seller.update({
       where: { id: seller.id },
       data: dataToUpdate,
     });

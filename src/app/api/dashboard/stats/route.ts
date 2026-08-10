@@ -3,13 +3,6 @@ import { getServerSession } from 'next-auth/next';
 import { prisma } from '@/lib/prisma';
 import { authOptions } from '@/lib/auth';
 
-function getModels() {
-  const sellerModel = (prisma as any).seller || prisma.seller;
-  const listingModel = (prisma as any).carListing || (prisma as any).listing || prisma.carListing;
-  const inquiryModel = (prisma as any).inquiry || prisma.inquiry;
-  return { sellerModel, listingModel, inquiryModel };
-}
-
 export async function GET(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
@@ -18,9 +11,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { sellerModel, listingModel, inquiryModel } = getModels();
-
-    const seller = await sellerModel.findFirst({
+    const seller = await prisma.seller.findFirst({
       where: {
         OR: [
           ...(session.user.sellerId ? [{ id: session.user.sellerId }] : []),
@@ -47,48 +38,33 @@ export async function GET(req: NextRequest) {
       recentListings,
       recentInquiries,
     ] = await Promise.all([
-      listingModel.count({
+      prisma.carListing.count({
         where: { sellerId },
       }),
-      listingModel.count({
+      prisma.carListing.count({
         where: { sellerId, status: 'ACTIVE' },
       }),
-      listingModel.aggregate({
+      prisma.carListing.aggregate({
         where: { sellerId },
         _sum: { views: true },
       }),
-      inquiryModel.count({
+      prisma.inquiry.count({
         where: {
-          OR: [
-            { sellerId },
-            { listing: { sellerId } },
-            { carListing: { sellerId } },
-          ],
+          carListing: { sellerId },
         },
       }),
-      listingModel.findMany({
+      prisma.carListing.findMany({
         where: { sellerId },
         orderBy: { createdAt: 'desc' },
         take: 5,
       }),
-      inquiryModel.findMany({
+      prisma.inquiry.findMany({
         where: {
-          OR: [
-            { sellerId },
-            { listing: { sellerId } },
-            { carListing: { sellerId } },
-          ],
+          carListing: { sellerId },
         },
         orderBy: { createdAt: 'desc' },
         take: 5,
         include: {
-          listing: {
-            select: {
-              id: true,
-              title: true,
-              price: true,
-            },
-          },
           carListing: {
             select: {
               id: true,

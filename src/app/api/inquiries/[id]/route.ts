@@ -5,14 +5,8 @@ import { prisma } from '@/lib/prisma';
 import { authOptions } from '@/lib/auth';
 
 const updateStatusSchema = z.object({
-  status: z.enum(['CONTACTED', 'CLOSED', 'PENDING']),
+  status: z.enum(['NEW', 'CONTACTED', 'CLOSED']),
 });
-
-function getModels() {
-  const inquiryModel = (prisma as any).inquiry || prisma.inquiry;
-  const sellerModel = (prisma as any).seller || prisma.seller;
-  return { inquiryModel, sellerModel };
-}
 
 export async function PATCH(
   req: NextRequest,
@@ -26,9 +20,8 @@ export async function PATCH(
     }
 
     const { id } = params;
-    const { inquiryModel, sellerModel } = getModels();
 
-    const seller = await sellerModel.findFirst({
+    const seller = await prisma.seller.findFirst({
       where: {
         OR: [
           ...(session.user.sellerId ? [{ id: session.user.sellerId }] : []),
@@ -44,10 +37,9 @@ export async function PATCH(
       );
     }
 
-    const inquiry = await inquiryModel.findUnique({
+    const inquiry = await prisma.inquiry.findUnique({
       where: { id },
       include: {
-        listing: { select: { sellerId: true } },
         carListing: { select: { sellerId: true } },
       },
     });
@@ -57,12 +49,7 @@ export async function PATCH(
     }
 
     // Verify the inquiry belongs to one of this seller's listings
-    const inquirySellerId =
-      inquiry.sellerId ||
-      inquiry.listing?.sellerId ||
-      inquiry.carListing?.sellerId;
-
-    if (inquirySellerId !== seller.id) {
+    if (inquiry.carListing?.sellerId !== seller.id) {
       return NextResponse.json(
         { error: 'Forbidden: You do not have permission to update this inquiry' },
         { status: 403 }
@@ -79,7 +66,7 @@ export async function PATCH(
       );
     }
 
-    const updatedInquiry = await inquiryModel.update({
+    const updatedInquiry = await prisma.inquiry.update({
       where: { id },
       data: {
         status: validation.data.status,
