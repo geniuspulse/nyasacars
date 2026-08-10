@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/client';
-import { CarListingWithSeller, Seller } from '@/types';
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
@@ -51,7 +50,7 @@ const seller2: any = {
 
 export const MOCK_SELLERS: any[] = [seller1, seller2];
 
-export const MOCK_CARS: CarListingWithSeller[] = [
+export const MOCK_CARS: any[] = [
   {
     id: 'car-1',
     sellerId: 'seller-1',
