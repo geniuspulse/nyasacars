@@ -32,6 +32,7 @@ async function getSellerWithListings(slug: string): Promise<{ seller: Seller; li
     const seller = await prisma.seller.findUnique({
       where: { shopSlug: slug },
       include: {
+        user: { select: { phone: true, email: true, name: true } },
         listings: {
           where: { status: 'ACTIVE' },
           orderBy: { createdAt: 'desc' },
@@ -176,18 +177,18 @@ export default async function SellerMinishopPage({ params }: SellerMinishopPageP
 
             {/* Direct Action Buttons */}
             <div className="flex flex-wrap sm:flex-nowrap items-center gap-3 w-full md:w-auto">
-              {seller.phone && (
+              {seller.user?.phone && (
                 <a
-                  href={`tel:${seller.phone}`}
+                  href={`tel:${seller.user?.phone}`}
                   className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 rounded-xl bg-nyasa-700 px-5 py-3 text-sm font-bold text-white shadow hover:bg-nyasa-800 transition"
                 >
                   <Phone className="h-4 w-4" />
                   <span>Call Dealership</span>
                 </a>
               )}
-              {seller.email && (
+              {seller.user?.email && (
                 <a
-                  href={`mailto:${seller.email}`}
+                  href={`mailto:${seller.user?.email}`}
                   className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-5 py-3 text-sm font-bold text-slate-800 hover:bg-slate-100 transition"
                 >
                   <Mail className="h-4 w-4 text-nyasa-700" />

@@ -49,7 +49,7 @@ export default function MinishopPage() {
           logo: seller.logo || seller.logoUrl || '',
           coverImage: seller.coverImage || seller.coverUrl || '',
           slug: seller.slug || '',
-          phone: seller.phone || '',
+          phone: seller.user?.phone || '',
           whatsapp: seller.whatsapp || '',
           address: seller.address || '',
         });

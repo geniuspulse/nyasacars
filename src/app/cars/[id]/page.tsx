@@ -286,22 +286,22 @@ export default async function CarDetailPage({ params }: CarDetailPageProps) {
               </div>
 
               <div className="space-y-2 text-xs font-semibold text-slate-700 border-t border-b border-slate-100 py-3">
-                {seller?.phone && (
+                {seller?.user?.phone && (
                   <a
-                    href={`tel:${seller.phone}`}
+                    href={`tel:${seller.user?.phone}`}
                     className="flex items-center gap-2 hover:text-nyasa-700 transition"
                   >
                     <Phone className="h-4 w-4 text-nyasa-700 shrink-0" />
-                    <span>{seller.phone}</span>
+                    <span>{seller.user?.phone}</span>
                   </a>
                 )}
-                {seller?.email && (
+                {seller?.user?.email && (
                   <a
-                    href={`mailto:${seller.email}`}
+                    href={`mailto:${seller.user?.email}`}
                     className="flex items-center gap-2 hover:text-nyasa-700 transition"
                   >
                     <Mail className="h-4 w-4 text-nyasa-700 shrink-0" />
-                    <span className="truncate">{seller.email}</span>
+                    <span className="truncate">{seller.user?.email}</span>
                   </a>
                 )}
               </div>
