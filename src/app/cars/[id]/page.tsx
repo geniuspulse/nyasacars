@@ -279,7 +279,7 @@ export default async function CarDetailPage({ params }: CarDetailPageProps) {
                 />
                 <div>
                   <h3 className="text-base font-bold text-slate-900">
-                    {seller?.shopName || seller?.name || 'Capital Motors Malawi'}
+                    {seller?.shopName || 'Capital Motors Malawi'}
                   </h3>
                   <p className="text-xs text-slate-500 font-medium">{seller?.location || car.location}</p>
                 </div>
