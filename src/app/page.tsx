@@ -255,7 +255,7 @@ export default async function HomePage() {
                 <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
                   <div className="flex items-center gap-1 text-amber-500 font-bold">
                     <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
-                    <span>{seller.rating || '4.9'} ({seller.reviewCount || '20'})</span>
+                    <span>4.9 (20)</span>
                   </div>
                   <span className="font-bold text-nyasa-700 group-hover:underline">
                     View Minishop &rarr;

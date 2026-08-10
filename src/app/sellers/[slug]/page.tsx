@@ -164,7 +164,7 @@ export default async function SellerMinishopPage({ params }: SellerMinishopPageP
                 <div className="flex items-center gap-3 text-xs text-slate-600 font-medium pt-1">
                   <span className="flex items-center gap-1 text-amber-500 font-bold">
                     <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
-                    {seller.rating || '4.9'} ({seller.reviewCount || '25'} reviews)
+                    4.9 (25 reviews)
                   </span>
                   <span>•</span>
                   <span className="flex items-center gap-1">
