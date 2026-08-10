@@ -9,19 +9,19 @@ interface CarCardProps {
 }
 
 export default function CarCard({ car }: CarCardProps) {
-  const formatPrice = (price: number) => {
+  const formatPrice = (price: any) => {
     return new Intl.NumberFormat('en-MW', {
       style: 'currency',
       currency: 'MWK',
       maximumFractionDigits: 0,
-    }).format(price);
+    }).format(Number(price));
   };
 
   const primaryImage = car.images && car.images.length > 0 
     ? car.images[0] 
     : 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=800&auto=format&fit=crop&q=80';
 
-  const sellerName = car.seller?.shopName || car.seller?.name || 'Verified Dealer';
+  const sellerName = car.seller?.shopName || car.seller?.shopName || 'Verified Dealer';
 
   return (
     <Link
@@ -39,7 +39,7 @@ export default function CarCard({ car }: CarCardProps) {
 
         {/* Badges Overlay */}
         <div className="absolute top-2.5 left-2.5 flex flex-wrap gap-1.5 z-10">
-          {car.featured && (
+          {car.isFeatured && (
             <span className="inline-flex items-center gap-1 bg-nyasa-700 text-white text-[11px] font-bold px-2.5 py-1 rounded-md shadow">
               <Sparkles className="h-3 w-3" />
               Featured
@@ -49,7 +49,7 @@ export default function CarCard({ car }: CarCardProps) {
             className={`inline-flex items-center text-[11px] font-bold px-2 py-0.5 rounded-md shadow backdrop-blur-md ${
               car.condition === 'NEW'
                 ? 'bg-emerald-600/90 text-white'
-                : car.condition === 'CERTIFIED'
+                : car.condition === 'CERTIFIED_PRE_OWNED'
                 ? 'bg-blue-600/90 text-white'
                 : 'bg-slate-900/80 text-slate-100'
             }`}
@@ -98,7 +98,7 @@ export default function CarCard({ car }: CarCardProps) {
           <div className="flex items-center gap-1.5 truncate max-w-[85%]">
             <Store className="h-3.5 w-3.5 text-nyasa-700 shrink-0" />
             <span className="font-semibold text-slate-700 truncate">{sellerName}</span>
-            {car.seller?.verified && (
+            {car.seller?.isVerified && (
               <CheckCircle2 className="h-3.5 w-3.5 text-nyasa-600 shrink-0" />
             )}
           </div>

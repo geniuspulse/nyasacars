@@ -105,6 +105,7 @@ model Seller {
   logo                 String?
   coverImage           String?
   isVerified           Boolean               @default(false)
+  location             String?
   plan                 Plan                  @default(FREE)
   adCredits            Int                   @default(0)
   createdAt            DateTime              @default(now())
@@ -133,6 +134,7 @@ model CarListing {
   fuelType       FuelType
   mileage        Int?
   color          String
+  location       String?
   engineSize     String?
   features       String[]
   description    String

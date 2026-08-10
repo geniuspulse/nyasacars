@@ -239,7 +239,7 @@ export default async function HomePage() {
                         <h3 className="font-bold text-slate-900 group-hover:text-nyasa-700 transition truncate text-base">
                           {seller.shopName}
                         </h3>
-                        {seller.verified && (
+                        {seller.isVerified && (
                           <CheckCircle className="h-4 w-4 text-nyasa-600 shrink-0" />
                         )}
                       </div>
@@ -248,7 +248,7 @@ export default async function HomePage() {
                   </div>
 
                   <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
-                    {seller.description}
+                    {seller.shopDescription}
                   </p>
                 </div>
 

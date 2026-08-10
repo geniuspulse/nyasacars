@@ -80,7 +80,7 @@ export async function generateMetadata({ params }: SellerMinishopPageProps): Pro
   const { seller, listings } = data;
   return {
     title: `${seller.shopName} — Vehicles for Sale in ${seller.location} | NyasaCars`,
-    description: seller.description || `Browse ${listings.length} verified cars for sale at ${seller.shopName} in ${seller.location}, Malawi.`,
+    description: seller.shopDescription || `Browse ${listings.length} verified cars for sale at ${seller.shopName} in ${seller.location}, Malawi.`,
   };
 }
 
@@ -147,7 +147,7 @@ export default async function SellerMinishopPage({ params }: SellerMinishopPageP
                   <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
                     {seller.shopName}
                   </h1>
-                  {seller.verified && (
+                  {seller.isVerified && (
                     <span className="inline-flex items-center gap-1 bg-nyasa-50 border border-nyasa-200 text-nyasa-700 text-xs font-bold px-2.5 py-0.5 rounded-full">
                       <ShieldCheck className="h-3.5 w-3.5 text-nyasa-700" />
                       Verified Dealer
@@ -199,9 +199,9 @@ export default async function SellerMinishopPage({ params }: SellerMinishopPageP
           </div>
 
           {/* Description */}
-          {seller.description && (
+          {seller.shopDescription && (
             <p className="text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
-              {seller.description}
+              {seller.shopDescription}
             </p>
           )}
 

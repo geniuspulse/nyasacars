@@ -15,36 +15,39 @@ if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
 // ─── Mock data for fallback when database is not yet configured ─────────────
 
-export const MOCK_SELLERS: Seller[] = [
-  {
-    id: 'seller-1',
-    userId: 'user-1',
-    shopName: 'Lakeside Motors',
-    shopSlug: 'lakeside-motors',
-    shopDescription: 'Quality used and imported cars in Blantyre. Trusted by hundreds of happy customers.',
-    logo: 'https://images.unsplash.com/photo-1567789884554-0b844b597180?w=200',
-    coverImage: 'https://images.unsplash.com/photo-1563720223185-11003d516935?w=1200',
-    isVerified: true,
-    plan: 'PRO',
-    adCredits: 15,
-    createdAt: new Date('2024-01-15'),
-    updatedAt: new Date('2024-06-01'),
-  },
-  {
-    id: 'seller-2',
-    userId: 'user-2',
-    shopName: 'Capital Auto Sales',
-    shopSlug: 'capital-auto-sales',
-    shopDescription: 'Lilongwe\'s premier dealership. New, used, and certified pre-owned vehicles.',
-    logo: 'https://images.unsplash.com/photo-1532581140115-3e355d1ed065?w=200',
-    coverImage: 'https://images.unsplash.com/photo-1502877338535-766e1452684a?w=1200',
-    isVerified: true,
-    plan: 'PREMIUM',
-    adCredits: 50,
-    createdAt: new Date('2024-02-01'),
-    updatedAt: new Date('2024-06-10'),
-  },
-];
+const seller1: Seller = {
+  id: 'seller-1',
+  userId: 'user-1',
+  shopName: 'Lakeside Motors',
+  shopSlug: 'lakeside-motors',
+  shopDescription: 'Quality used and imported cars in Blantyre. Trusted by hundreds of happy customers.',
+  logo: 'https://images.unsplash.com/photo-1567789884554-0b844b597180?w=200',
+  coverImage: 'https://images.unsplash.com/photo-1563720223185-11003d516935?w=1200',
+  isVerified: true,
+  plan: 'PRO',
+  adCredits: 15,
+  location: 'Blantyre',
+  createdAt: new Date('2024-01-15'),
+  updatedAt: new Date('2024-06-01'),
+};
+
+const seller2: Seller = {
+  id: 'seller-2',
+  userId: 'user-2',
+  shopName: 'Capital Auto Sales',
+  shopSlug: 'capital-auto-sales',
+  shopDescription: "Lilongwe's premier dealership. New, used, and certified pre-owned vehicles.",
+  logo: 'https://images.unsplash.com/photo-1532581140115-3e355d1ed065?w=200',
+  coverImage: 'https://images.unsplash.com/photo-1502877338535-766e1452684a?w=1200',
+  isVerified: true,
+  plan: 'PREMIUM',
+  adCredits: 50,
+  location: 'Lilongwe',
+  createdAt: new Date('2024-02-01'),
+  updatedAt: new Date('2024-06-10'),
+};
+
+export const MOCK_SELLERS: Seller[] = [seller1, seller2];
 
 export const MOCK_CARS: CarListingWithSeller[] = [
   {
@@ -63,6 +66,7 @@ export const MOCK_CARS: CarListingWithSeller[] = [
     mileage: 45000,
     color: 'Silver',
     engineSize: '1.8L',
+    location: 'Blantyre',
     features: ['Air Conditioning', 'Power Steering', 'Airbags', 'ABS', 'Bluetooth', 'Reverse Camera'],
     description: 'Well-maintained Toyota Corolla, single owner, full service history. Perfect for daily commute in Lilongwe or Blantyre.',
     images: [
@@ -75,31 +79,11 @@ export const MOCK_CARS: CarListingWithSeller[] = [
     views: 245,
     createdAt: new Date('2026-08-01'),
     updatedAt: new Date('2026-08-05'),
-    seller: {
-      id: 'seller-1',
-      userId: 'user-1',
-      shopName: 'Lakeside Motors',
-      shopSlug: 'lakeside-motors',
-      shopDescription: 'Quality used and imported cars in Blantyre.',
-      logo: 'https://images.unsplash.com/photo-1567789884554-0b844b597180?w=200',
-      coverImage: 'https://images.unsplash.com/photo-1563720223185-11003d516935?w=1200',
-      isVerified: true,
-      plan: 'PRO',
-      adCredits: 15,
-      createdAt: new Date('2024-01-15'),
-      updatedAt: new Date('2024-06-01'),
-      user: {
-        id: 'user-1',
-        email: 'lakeside@example.com',
-        password: '',
-        name: 'Lakeside Motors',
-        role: 'SELLER',
-        phone: '+265 999 12 34 56',
-        avatar: null,
-        createdAt: new Date('2024-01-15'),
-        updatedAt: new Date('2024-06-01'),
-      },
-    },
+    seller: { ...seller1, user: {
+      id: 'user-1', email: 'lakeside@example.com', password: '', name: 'Lakeside Motors',
+      role: 'SELLER', phone: '+265 999 12 34 56', avatar: null,
+      createdAt: new Date('2024-01-15'), updatedAt: new Date('2024-06-01'),
+    } } as any,
   },
   {
     id: 'car-2',
@@ -117,6 +101,7 @@ export const MOCK_CARS: CarListingWithSeller[] = [
     mileage: 28000,
     color: 'Blue',
     engineSize: '1.5L Turbo',
+    location: 'Blantyre',
     features: ['Air Conditioning', 'Power Steering', 'Airbags', 'ABS', 'Sunroof', 'Leather Seats', 'Navigation'],
     description: 'Low mileage Honda Civic with turbo engine. Sporty and fuel-efficient. Import from Japan.',
     images: [
@@ -129,7 +114,7 @@ export const MOCK_CARS: CarListingWithSeller[] = [
     views: 312,
     createdAt: new Date('2026-08-02'),
     updatedAt: new Date('2026-08-03'),
-    seller: MOCK_SELLERS[0] as any,
+    seller: { ...seller1, user: {} as any } as any,
   },
   {
     id: 'car-3',
@@ -147,6 +132,7 @@ export const MOCK_CARS: CarListingWithSeller[] = [
     mileage: 35000,
     color: 'Red',
     engineSize: '2.5L',
+    location: 'Lilongwe',
     features: ['Air Conditioning', 'Power Steering', 'Airbags', 'ABS', '4WD', 'Cruise Control', 'Bluetooth', 'Reverse Camera'],
     description: 'Mazda CX-5 SUV in excellent condition. Spacious and reliable for Malawi roads.',
     images: [
@@ -158,7 +144,7 @@ export const MOCK_CARS: CarListingWithSeller[] = [
     views: 189,
     createdAt: new Date('2026-08-03'),
     updatedAt: new Date('2026-08-03'),
-    seller: MOCK_SELLERS[1] as any,
+    seller: { ...seller2, user: {} as any } as any,
   },
   {
     id: 'car-4',
@@ -176,6 +162,7 @@ export const MOCK_CARS: CarListingWithSeller[] = [
     mileage: 15000,
     color: 'Black',
     engineSize: '2.0L Turbo',
+    location: 'Lilongwe',
     features: ['Air Conditioning', 'Power Steering', 'Airbags', 'ABS', 'Leather Seats', 'Sunroof', 'Navigation', 'Premium Sound', 'Parking Sensors'],
     description: 'Certified pre-owned BMW 320i. Luxury and performance. Still under warranty.',
     images: [
@@ -187,7 +174,7 @@ export const MOCK_CARS: CarListingWithSeller[] = [
     views: 456,
     createdAt: new Date('2026-08-04'),
     updatedAt: new Date('2026-08-05'),
-    seller: MOCK_SELLERS[1] as any,
+    seller: { ...seller2, user: {} as any } as any,
   },
   {
     id: 'car-5',
@@ -205,6 +192,7 @@ export const MOCK_CARS: CarListingWithSeller[] = [
     mileage: 62000,
     color: 'White',
     engineSize: '2.0L',
+    location: 'Blantyre',
     features: ['Air Conditioning', 'Power Steering', 'Airbags', 'ABS', '4WD', 'Roof Rails', 'Bluetooth'],
     description: 'Reliable Nissan X-Trail diesel. Great for upcountry trips. 7-seater.',
     images: [
@@ -216,7 +204,7 @@ export const MOCK_CARS: CarListingWithSeller[] = [
     views: 134,
     createdAt: new Date('2026-08-05'),
     updatedAt: new Date('2026-08-05'),
-    seller: MOCK_SELLERS[0] as any,
+    seller: { ...seller1, user: {} as any } as any,
   },
   {
     id: 'car-6',
@@ -234,6 +222,7 @@ export const MOCK_CARS: CarListingWithSeller[] = [
     mileage: 40000,
     color: 'Silver',
     engineSize: '3.2L',
+    location: 'Lilongwe',
     features: ['Air Conditioning', 'Power Steering', 'Airbags', 'ABS', '4WD', 'Canopy', 'Tow Bar', 'Bluetooth'],
     description: 'Ford Ranger double cab. Workhorse for business and adventure. Canopy included.',
     images: [
@@ -245,6 +234,6 @@ export const MOCK_CARS: CarListingWithSeller[] = [
     views: 178,
     createdAt: new Date('2026-08-06'),
     updatedAt: new Date('2026-08-06'),
-    seller: MOCK_SELLERS[1] as any,
+    seller: { ...seller2, user: {} as any } as any,
   },
 ];

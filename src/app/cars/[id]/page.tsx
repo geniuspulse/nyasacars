@@ -59,7 +59,7 @@ export async function generateMetadata({ params }: CarDetailPageProps): Promise<
     style: 'currency',
     currency: 'MWK',
     maximumFractionDigits: 0,
-  }).format(car.price);
+  }).format(Number(car.price));
 
   return {
     title: `${car.year} ${car.make} ${car.model} (${formattedPrice}) for Sale in ${car.location} — NyasaCars`,
@@ -84,12 +84,12 @@ export default async function CarDetailPage({ params }: CarDetailPageProps) {
     // Ignore error if database is not active
   }
 
-  const formatPrice = (price: number) => {
+  const formatPrice = (price: any) => {
     return new Intl.NumberFormat('en-MW', {
       style: 'currency',
       currency: 'MWK',
       maximumFractionDigits: 0,
-    }).format(price);
+    }).format(Number(price));
   };
 
   const seller = car.seller;
@@ -138,7 +138,7 @@ export default async function CarDetailPage({ params }: CarDetailPageProps) {
             {/* Title & Price Header Card */}
             <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
               <div className="flex flex-wrap items-center gap-2">
-                {car.featured && (
+                {car.isFeatured && (
                   <span className="inline-flex items-center gap-1 bg-nyasa-700 text-white text-xs font-bold px-3 py-1 rounded-md">
                     <Sparkles className="h-3.5 w-3.5 text-amber-300" />
                     Featured Vehicle
@@ -264,7 +264,7 @@ export default async function CarDetailPage({ params }: CarDetailPageProps) {
                 <span className="text-xs font-bold text-nyasa-700 uppercase tracking-wider">
                   Listed By Dealership
                 </span>
-                {seller?.verified && (
+                {seller?.isVerified && (
                   <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
                     <ShieldCheck className="h-3.5 w-3.5" /> Verified Dealer
                   </span>

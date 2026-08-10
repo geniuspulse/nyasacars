@@ -174,7 +174,7 @@ export default function FilterSidebar() {
               { label: 'All Conditions', value: '' },
               { label: 'Pre-Owned / Used', value: 'USED' },
               { label: 'Brand New', value: 'NEW' },
-              { label: 'Certified Import', value: 'CERTIFIED' },
+              { label: 'Certified Import', value: 'CERTIFIED_PRE_OWNED' },
             ].map((cond) => (
               <label key={cond.value} className="flex items-center gap-2 cursor-pointer hover:text-nyasa-700">
                 <input

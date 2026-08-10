@@ -28,7 +28,7 @@ const listingSchema = z.object({
   year: z.coerce.number().min(1900, 'Invalid year').max(new Date().getFullYear() + 1, 'Invalid year'),
   price: z.coerce.number().min(0, 'Price must be 0 or greater'),
   currency: z.string().min(1, 'Currency is required'),
-  condition: z.enum(['USED', 'NEW', 'CERTIFIED']),
+  condition: z.enum(['USED', 'NEW', 'CERTIFIED_PRE_OWNED']),
   bodyType: z.enum(['SEDAN', 'SUV', 'HATCHBACK', 'TRUCK', 'VAN', 'COUPE', 'CONVERTIBLE', 'WAGON']),
   transmission: z.enum(['AUTOMATIC', 'MANUAL']),
   fuelType: z.enum(['PETROL', 'DIESEL', 'HYBRID', 'ELECTRIC']),
