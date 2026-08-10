@@ -66,7 +66,7 @@ export default async function AdminDashboardPage() {
         seller: {
           select: {
             shopName: true,
-            slug: true,
+            shopSlug: true,
           },
         },
       },
