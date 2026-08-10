@@ -81,7 +81,6 @@ export async function POST(req: NextRequest) {
                 create: {
                   shopName,
                   shopSlug: shopSlug!,
-                  phone: phone || null,
                   plan: 'FREE',
                   adCredits: 0,
                 },
