@@ -122,7 +122,7 @@ export default async function CarsPage({ searchParams }: CarsPageProps) {
     // Sort mock data
     if (sort === 'price_asc') filtered.sort((a, b) => Number(a.price) - Number(b.price));
     else if (sort === 'price_desc') filtered.sort((a, b) => Number(b.price) - Number(a.price));
-    else if (sort === 'mileage_asc') filtered.sort((a, b) => a.mileage - b.mileage);
+    else if (sort === 'mileage_asc') filtered.sort((a, b) => (a.mileage ?? 0) - (b.mileage ?? 0));
     else filtered.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
     totalCount = filtered.length;
