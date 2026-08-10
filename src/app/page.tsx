@@ -19,7 +19,7 @@ export default async function HomePage() {
       },
       take: 6,
       include: {
-        seller: true,
+        seller: { include: { user: { select: { phone: true, email: true, name: true } } } },
       },
       orderBy: [
         { isFeatured: 'desc' },

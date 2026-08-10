@@ -36,7 +36,7 @@ async function getCar(id: string): Promise<CarListingWithSeller | null> {
   try {
     const car = await prisma.carListing.findUnique({
       where: { id },
-      include: { seller: true },
+      include: { seller: { include: { user: { select: { phone: true, email: true, name: true } } } } },
     });
     if (car) return car as unknown as CarListingWithSeller;
   } catch (err) {

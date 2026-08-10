@@ -15,7 +15,7 @@ if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
 // ─── Mock data for fallback when database is not yet configured ─────────────
 
-const seller1: Seller = {
+const seller1: any = {
   id: 'seller-1',
   userId: 'user-1',
   shopName: 'Lakeside Motors',
@@ -27,11 +27,12 @@ const seller1: Seller = {
   plan: 'PRO',
   adCredits: 15,
   location: 'Blantyre',
+  user: { id: 'user-1', name: 'Lakeside Motors Owner', email: 'info@lakeside.mw', phone: '+265991234567' } as any,
   createdAt: new Date('2024-01-15'),
   updatedAt: new Date('2024-06-01'),
 };
 
-const seller2: Seller = {
+const seller2: any = {
   id: 'seller-2',
   userId: 'user-2',
   shopName: 'Capital Auto Sales',
@@ -43,11 +44,12 @@ const seller2: Seller = {
   plan: 'PREMIUM',
   adCredits: 50,
   location: 'Lilongwe',
+  user: { id: 'user-2', name: 'Capital Auto Owner', email: 'info@capitalauto.mw', phone: '+265997654321' } as any,
   createdAt: new Date('2024-02-01'),
   updatedAt: new Date('2024-06-10'),
 };
 
-export const MOCK_SELLERS: Seller[] = [seller1, seller2];
+export const MOCK_SELLERS: any[] = [seller1, seller2];
 
 export const MOCK_CARS: CarListingWithSeller[] = [
   {

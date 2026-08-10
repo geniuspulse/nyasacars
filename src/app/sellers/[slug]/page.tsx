@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 import { prisma, MOCK_SELLERS, MOCK_CARS } from '@/lib/prisma';
 import CarCard from '@/components/CarCard';
-import { Seller, CarListingWithSeller } from '@/types';
+import { SellerWithUser, CarListingWithSeller } from '@/types';
 import {
   Store,
   CheckCircle,
@@ -27,7 +27,7 @@ interface SellerMinishopPageProps {
   };
 }
 
-async function getSellerWithListings(slug: string): Promise<{ seller: Seller; listings: CarListingWithSeller[] } | null> {
+async function getSellerWithListings(slug: string): Promise<{ seller: SellerWithUser; listings: CarListingWithSeller[] } | null> {
   try {
     const seller = await prisma.seller.findUnique({
       where: { shopSlug: slug },
@@ -41,7 +41,7 @@ async function getSellerWithListings(slug: string): Promise<{ seller: Seller; li
     });
 
     if (seller) {
-      const formattedSeller = seller as unknown as Seller;
+      const formattedSeller = seller as unknown as SellerWithUser;
       const formattedListings = (seller.listings || []).map((listing: any) => ({
         ...listing,
         seller: formattedSeller,
