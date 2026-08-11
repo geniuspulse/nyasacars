@@ -65,7 +65,7 @@ export default function Navbar() {
           </Link>
 
           <Link
-            href="/sellers"
+            href="/register"
             className="inline-flex items-center gap-2 rounded-lg bg-nyasa-700 px-4 py-2 text-sm font-semibold text-white shadow-md hover:bg-nyasa-800 transition duration-150"
           >
             <span>Sell Your Car</span>
@@ -119,7 +119,7 @@ export default function Navbar() {
             </Link>
 
             <Link
-              href="/sellers"
+              href="/register"
               onClick={() => setIsOpen(false)}
               className="flex w-full items-center justify-center gap-2 rounded-lg bg-nyasa-700 px-4 py-2.5 text-sm font-semibold text-white shadow hover:bg-nyasa-800"
             >

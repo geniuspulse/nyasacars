@@ -253,10 +253,10 @@ export default async function HomePage() {
                 </div>
 
                 <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-                  <div className="flex items-center gap-1 text-amber-500 font-bold">
-                    <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
-                    <span>4.9 (20)</span>
-                  </div>
+                  <span className="inline-flex items-center gap-1 text-slate-500 font-semibold">
+                    <ShieldCheck className="h-3.5 w-3.5 text-emerald-500" />
+                    {seller.isVerified ? "Verified Dealer" : "Active Dealer"}
+                  </span>
                   <span className="font-bold text-nyasa-700 group-hover:underline">
                     View Minishop &rarr;
                   </span>
@@ -288,14 +288,14 @@ export default async function HomePage() {
 
             <div className="flex flex-col sm:flex-row lg:flex-col gap-3 justify-center">
               <Link
-                href="/sellers"
+                href="/register"
                 className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-bold text-nyasa-900 shadow-lg hover:bg-nyasa-50 transition"
               >
                 <Store className="h-4 w-4 text-nyasa-700" />
                 <span>Create Seller Account</span>
               </Link>
               <Link
-                href="/sellers"
+                href="/dashboard/subscription"
                 className="inline-flex items-center justify-center gap-2 rounded-xl border border-nyasa-600 bg-nyasa-800/80 px-6 py-3.5 text-sm font-bold text-white hover:bg-nyasa-700 transition"
               >
                 <span>Learn Dealer Benefits</span>
