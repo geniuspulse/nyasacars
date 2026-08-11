@@ -37,7 +37,7 @@ const seller2: any = {
   shopName: 'Capital Auto Sales',
   shopSlug: 'capital-auto-sales',
   shopDescription: "Lilongwe's premier dealership. New, used, and certified pre-owned vehicles.",
-  logo: 'https://images.unsplash.com/photo-1532581140115-3e355d1ed065?w=200',
+  logo: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=200',
   coverImage: 'https://images.unsplash.com/photo-1502877338535-766e1452684a?w=1200',
   isVerified: true,
   plan: 'PREMIUM',
@@ -71,8 +71,8 @@ export const MOCK_CARS: any[] = [
     features: ['Air Conditioning', 'Power Steering', 'Airbags', 'ABS', 'Bluetooth', 'Reverse Camera'],
     description: 'Well-maintained Toyota Corolla, single owner, full service history. Perfect for daily commute in Lilongwe or Blantyre.',
     images: [
-      'https://images.unsplash.com/photo-1549317661-bad32c169078?w=800',
-      'https://images.unsplash.com/photo-1542362775-28fd2d1a10e2?w=800',
+      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800',
+      'https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800',
     ],
     status: 'ACTIVE',
     isFeatured: true,
@@ -106,8 +106,8 @@ export const MOCK_CARS: any[] = [
     features: ['Air Conditioning', 'Power Steering', 'Airbags', 'ABS', 'Sunroof', 'Leather Seats', 'Navigation'],
     description: 'Low mileage Honda Civic with turbo engine. Sporty and fuel-efficient. Import from Japan.',
     images: [
-      'https://images.unsplash.com/photo-1606220945770-5bbb0c1a1fee?w=800',
-      'https://images.unsplash.com/photo-1605559424843-9e4c0452df90?w=800',
+      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800',
+      'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800',
     ],
     status: 'ACTIVE',
     isFeatured: true,
@@ -137,7 +137,7 @@ export const MOCK_CARS: any[] = [
     features: ['Air Conditioning', 'Power Steering', 'Airbags', 'ABS', '4WD', 'Cruise Control', 'Bluetooth', 'Reverse Camera'],
     description: 'Mazda CX-5 SUV in excellent condition. Spacious and reliable for Malawi roads.',
     images: [
-      'https://images.unsplash.com/photo-1605581809338-4f3f9d12c1ed?w=800',
+      'https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?w=800',
     ],
     status: 'ACTIVE',
     isFeatured: false,
@@ -167,7 +167,7 @@ export const MOCK_CARS: any[] = [
     features: ['Air Conditioning', 'Power Steering', 'Airbags', 'ABS', 'Leather Seats', 'Sunroof', 'Navigation', 'Premium Sound', 'Parking Sensors'],
     description: 'Certified pre-owned BMW 320i. Luxury and performance. Still under warranty.',
     images: [
-      'https://images.unsplash.com/photo-1555215691-9a8b2a6b1e0d?w=800',
+      'https://images.unsplash.com/photo-1493238792000-8113da705763?w=800',
     ],
     status: 'ACTIVE',
     isFeatured: true,
@@ -197,7 +197,7 @@ export const MOCK_CARS: any[] = [
     features: ['Air Conditioning', 'Power Steering', 'Airbags', 'ABS', '4WD', 'Roof Rails', 'Bluetooth'],
     description: 'Reliable Nissan X-Trail diesel. Great for upcountry trips. 7-seater.',
     images: [
-      'https://images.unsplash.com/photo-1533476408-66cd31e2a1a4?w=800',
+      'https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=800',
     ],
     status: 'ACTIVE',
     isFeatured: false,
@@ -227,7 +227,7 @@ export const MOCK_CARS: any[] = [
     features: ['Air Conditioning', 'Power Steering', 'Airbags', 'ABS', '4WD', 'Canopy', 'Tow Bar', 'Bluetooth'],
     description: 'Ford Ranger double cab. Workhorse for business and adventure. Canopy included.',
     images: [
-      'https://images.unsplash.com/photo-1605581809338-4f3f9d12c1ed?w=800',
+      'https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?w=800',
     ],
     status: 'ACTIVE',
     isFeatured: false,
