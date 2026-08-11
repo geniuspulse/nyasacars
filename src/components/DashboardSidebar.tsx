@@ -136,7 +136,7 @@ export default function DashboardSidebar({ user, seller }: SidebarProps) {
               <div className="text-sm font-semibold text-white truncate">{seller.shopName}</div>
               {seller.slug && (
                 <Link
-                  href={`/shops/${seller.slug}`}
+                  href={`/sellers/${seller.slug}`}
                   target="_blank"
                   className="inline-flex items-center gap-1 text-xs text-blue-400 hover:text-blue-300 mt-1"
                 >

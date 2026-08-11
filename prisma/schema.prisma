@@ -108,6 +108,16 @@ model Seller {
   location             String?
   plan                 Plan                  @default(FREE)
   adCredits            Int                   @default(0)
+
+  // Storefront fields
+  whatsapp             String?
+  address              String?
+  specialties          String[]
+  businessHours        Json?
+  socialLinks          Json?
+  totalSold            Int                   @default(0)
+  totalViews           Int                   @default(0)
+
   createdAt            DateTime              @default(now())
   updatedAt            DateTime              @updatedAt
 

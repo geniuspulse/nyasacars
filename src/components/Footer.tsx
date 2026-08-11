@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Car, Mail, Phone, MapPin, ShieldCheck, ExternalLink } from 'lucide-react';
+import { Car, Mail, Phone, MapPin, ShieldCheck, ExternalLink, Store, PlusCircle, CreditCard, LayoutDashboard } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -36,27 +36,27 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2.5 text-sm text-nyasa-100/80">
               <li>
-                <Link href="/" className="hover:text-white transition flex items-center gap-1.5">
+                <Link href="/" className="hover:text-white transition">
                   Home Page
                 </Link>
               </li>
               <li>
-                <Link href="/cars" className="hover:text-white transition flex items-center gap-1.5">
+                <Link href="/cars" className="hover:text-white transition">
                   Browse All Cars
                 </Link>
               </li>
               <li>
-                <Link href="/cars?condition=NEW" className="hover:text-white transition flex items-center gap-1.5">
+                <Link href="/cars?condition=NEW" className="hover:text-white transition">
                   New Cars
                 </Link>
               </li>
               <li>
-                <Link href="/cars?condition=USED" className="hover:text-white transition flex items-center gap-1.5">
+                <Link href="/cars?condition=USED" className="hover:text-white transition">
                   Pre-Owned Vehicles
                 </Link>
               </li>
               <li>
-                <Link href="/cars?bodyType=SUV" className="hover:text-white transition flex items-center gap-1.5">
+                <Link href="/cars?bodyType=SUV" className="hover:text-white transition">
                   SUVs &amp; 4x4 Off-Roaders
                 </Link>
               </li>
@@ -70,23 +70,27 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2.5 text-sm text-nyasa-100/80">
               <li>
-                <Link href="/sellers" className="hover:text-white transition flex items-center gap-1.5">
-                  Seller Portal
+                <Link href="/dashboard" className="hover:text-white transition flex items-center gap-1.5">
+                  <LayoutDashboard className="h-3.5 w-3.5" />
+                  Seller Dashboard
                 </Link>
               </li>
               <li>
-                <Link href="/sellers" className="hover:text-white transition flex items-center gap-1.5">
-                  Create Dealership Minishop
+                <Link href="/dashboard/minishop" className="hover:text-white transition flex items-center gap-1.5">
+                  <Store className="h-3.5 w-3.5" />
+                  Customize Storefront
                 </Link>
               </li>
               <li>
-                <Link href="/sellers" className="hover:text-white transition flex items-center gap-1.5">
-                  List Individual Vehicle
+                <Link href="/dashboard/listings/new" className="hover:text-white transition flex items-center gap-1.5">
+                  <PlusCircle className="h-3.5 w-3.5" />
+                  List a Vehicle
                 </Link>
               </li>
               <li>
-                <Link href="/sellers" className="hover:text-white transition flex items-center gap-1.5">
-                  Seller Guidelines &amp; Pricing
+                <Link href="/dashboard/subscription" className="hover:text-white transition flex items-center gap-1.5">
+                  <CreditCard className="h-3.5 w-3.5" />
+                  Plans &amp; Pricing
                 </Link>
               </li>
               <li>
@@ -117,19 +121,17 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-
         </div>
 
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-nyasa-900/80 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-nyasa-100/60">
           <p>© {currentYear} NyasaCars Malawi. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <span className="hover:text-white cursor-pointer transition">Privacy Policy</span>
-            <span className="hover:text-white cursor-pointer transition">Terms of Service</span>
-            <span className="hover:text-white cursor-pointer transition">Safety Tips</span>
+            <Link href="/privacy" className="hover:text-white transition">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-white transition">Terms of Service</Link>
+            <Link href="/safety-tips" className="hover:text-white transition">Safety Tips</Link>
           </div>
         </div>
-
       </div>
     </footer>
   );
